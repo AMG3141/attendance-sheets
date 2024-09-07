@@ -1,0 +1,50 @@
+\documentclass[12pt]{amsart}
+\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{titlesec}
+\usepackage{longtable}
+\usepackage{color, colortbl}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+\definecolor{grey}{gray}{0.9}
+\newcommand{\currentsectionname}{\nameref{currentsectionlabel}}
+\newcommand{\twodigits}[1]{\ifnum#1<10 0#1\else#1\fi}
+
+%%%% Set custom headers and footers %%%%
+\fancypagestyle{Brass}{
+	\fancyhf{}
+	\fancyhead[L]{Brass}
+	\fancyhead[R]{\number\year-\twodigits{\number\month}-\twodigits{\number\day}}
+}
+
+\fancypagestyle{Conductor}{
+	\fancyhf{}
+	\fancyhead[L]{Conductor}
+	\fancyhead[R]{\number\year-\twodigits{\number\month}-\twodigits{\number\day}}
+}
+
+\fancypagestyle{Percussion}{
+	\fancyhf{}
+	\fancyhead[L]{Percussion}
+	\fancyhead[R]{\number\year-\twodigits{\number\month}-\twodigits{\number\day}}
+}
+
+\fancypagestyle{Strings}{
+	\fancyhf{}
+	\fancyhead[L]{Strings}
+	\fancyhead[R]{\number\year-\twodigits{\number\month}-\twodigits{\number\day}}
+}
+
+\fancypagestyle{Wind}{
+	\fancyhf{}
+	\fancyhead[L]{Wind}
+	\fancyhead[R]{\number\year-\twodigits{\number\month}-\twodigits{\number\day}}
+}
+
+\titleformat{\section}{\Large\bfseries}{\thesection}{1em}{}
+
+\begin{document}
+\thispagestyle{fancy}
+\input{content.tex}
+\end{document}

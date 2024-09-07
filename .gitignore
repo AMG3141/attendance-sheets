@@ -1,0 +1,6 @@
+__pycache__/
+memberData.txt
+sheets/archive/
+sheets/tables/
+sheets/content.tex
+sheets/*pdf

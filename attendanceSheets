@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Get the absolute path of this script (following symlink, if present)
+dirName=$(dirname $(readlink -f $0))
+
+# Check if relevant directories exist
+if [ ! -f ./sheets/content.tex ]
+then
+	touch ./sheets/content.tex
+	echo "Created ./sheets/content.tex"
+fi
+
+if [ ! -d ./sheets/tables/ ]
+then
+	mkdir ./sheets/tables/
+	echo "Created ./sheets/tables/"
+fi
+
+# Move old stuff to archive
+echo "Moving old sheets into archive"
+if [ ! -d ./sheets/archive ]
+then
+	mkdir ./sheets/archive/
+	mkdir ./sheets/archive/tex/
+	mkdir ./sheets/archive/pdf/
+	echo "Created ./sheets/archive/, ./sheets/archive/tex/, ./sheets/archive/pdf/"
+fi
+
+mv ./sheets/*pdf ./sheets/archive/pdf/
+mv ./sheets/tables/* ./sheets/archive/tex/
+
+# Generate new stuff
+mainPath="$dirName/main.py"
+memberData="$(pwd)/memberData.txt"
+instrumentData="$(pwd)/instruments.csv"
+contentPath="$(pwd)/sheets/content.tex"
+tablesDir="$(pwd)/sheets/tables/"
+python3 $mainPath $memberData $instrumentData $contentPath $tablesDir Conductor
+
+cd ./sheets
+echo "Compiling"
+latexmk -pdf -silent ./main.tex
+latexmk -c
+today=$(date +"%Y-%m-%d")
+mv ./main.pdf ./$today.pdf
+
+echo "FINISHED"
