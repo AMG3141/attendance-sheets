@@ -5,12 +5,12 @@ import numpy as np
 # str is location, either the url or a file containing the url
 def download(str, url = True):
 	if url:
-		memberData = pd.read_csv(str)
+		link = str
 	else:
 		f = open(str, "r")
 		link = f.read()
 		f.close()
-		memberData = pd.read_csv(link)
+	memberData = pd.read_csv(link, index_col = "ID")
 
 	memberData.sort_values(by = ["Last Name", "First Name"], inplace = True)
 
@@ -102,7 +102,7 @@ def generateTex(memberData, exclude, contentFilePath = None, targetDir = None):
 			f.close()
 
 			# CSV
-			sectionSheet.to_csv(f"{targetDir}/{filename}.csv", index = False)
+			sectionSheet.to_csv(f"{targetDir}/{filename}.csv")
 
 
 		# Put the tables in the document (if necessary)
