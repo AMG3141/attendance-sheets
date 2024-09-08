@@ -31,7 +31,9 @@ mv ./sheets/tables/* ./sheets/archive/tex/
 
 # Generate new stuff
 mainPath="$dirName/main.py"
-memberData="$(pwd)/memberData.txt"
+# memberData="$(pwd)/memberData.txt"
+echo "THIS IS JUST FOR RETURNING MEMBERS! ON FIRST REAL REHEARSAL CHANGE TO ALL MEMBERS!!!"
+memberData="$(pwd)/returningData.txt"
 instrumentData="$(pwd)/instruments.csv"
 contentPath="$(pwd)/sheets/content.tex"
 tablesDir="$(pwd)/sheets/tables/"

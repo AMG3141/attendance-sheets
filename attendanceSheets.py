@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import sys
 
 # Download most recent version of member data
 # str is location, either the url or a file containing the url
@@ -13,8 +12,7 @@ def download(str, url = True):
 		f.close()
 		memberData = pd.read_csv(link)
 
-	memberData["Date of Birth"] = pd.to_datetime(memberData["Date of Birth"], format = "%d/%m/%Y")
-	memberData.sort_values(by = ["Last Name", "First Name", "Date of Birth"], inplace = True)
+	memberData.sort_values(by = ["Last Name", "First Name"], inplace = True)
 
 	# Clean stuff up
 	memberData["Instrument"] = [s.lower() for s in memberData["Instrument"]] # Making lowercase just solves problems later on
@@ -68,7 +66,7 @@ def generateTex(memberData, exclude, contentFilePath = None, targetDir = None):
 
 		# Write out each section to its own file
 		sectionSheet = pd.DataFrame({"Name": sectionNames, "Present": np.array([""] * len(sectionData))})
-		filename = f"{np.datetime64('today')}-{section}.tex"
+		filename = f"{np.datetime64('today')}-{section}"
 		sectionTex = sectionSheet.to_latex(index = False, na_rep = "", column_format = "|l|l|", longtable = True)
 
 		# Make table look nice
@@ -94,19 +92,24 @@ def generateTex(memberData, exclude, contentFilePath = None, targetDir = None):
 		# Colour header
 		sectionTexLines.insert(2, r"\rowcolor{grey}")
 
-		# Write table to file or add to list
+		# Write table to files or add to list
 		if targetDir == None:
 			tablesTex.append("\n".join(sectionTexLines))
 		else:
-			f = open(f"{targetDir}/{filename}", "w")
+			# Tex
+			f = open(f"{targetDir}/{filename}.tex", "w")
 			f.writelines("\n".join(sectionTexLines))
 			f.close()
+
+			# CSV
+			sectionSheet.to_csv(f"{targetDir}/{filename}.csv", index = False)
+
 
 		# Put the tables in the document (if necessary)
 		if contentFilePath != None:
 			contentFile.write(r"\pagestyle{" + section + r"}" + "\n")
 			# contentFile.write(r"\section*{" + section + r"}" + "\n")
-			contentFile.write(r"\input{tables/" + filename + r"}" + "\n")
+			contentFile.write(r"\input{tables/" + filename + r".tex}" + "\n")
 			contentFile.write(r"\newpage" + "\n")
 
 	if contentFilePath != None: contentFile.close()

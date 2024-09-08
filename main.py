@@ -1,4 +1,6 @@
 from attendanceSheets import *
+import sys
+
 '''
 Arguments:
 - URL of data or file containing URL
