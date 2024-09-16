@@ -7,7 +7,7 @@ Arguments:
 - Path to instruments file
 - Location of content.tex (set as "" to print instead)
 - Location to save tex for tables (set as "" to print instead)
-- Any sections to omit
+- Any sections to omit (will still generate csv because it makes life easier for autoAttendance)
 '''
 
 # Load data

@@ -58,8 +58,6 @@ def generateTex(memberData, exclude, contentFilePath = None, targetDir = None):
 	if contentFilePath != None: contentFile = open(contentFilePath, "w")
 
 	for section in np.sort(pd.unique(memberData["Section"])):
-		if section in exclude: continue
-
 		# Get full names for players in this section
 		sectionData = memberData[memberData["Section"] == section]
 		sectionNames = sectionData["First Name"] + np.array([" "] * len(sectionData)) + sectionData["Last Name"]
@@ -67,6 +65,14 @@ def generateTex(memberData, exclude, contentFilePath = None, targetDir = None):
 		# Write out each section to its own file
 		sectionSheet = pd.DataFrame({"Name": sectionNames, "Present": np.array([""] * len(sectionData))})
 		filename = f"{np.datetime64('today')}-{section}"
+
+		# All sections get a csv, only those not excluded get tex
+		# Default to "N" on csv version, makes life easier
+		csvSheet = sectionSheet.copy()
+		csvSheet["Present"] = "N"
+		csvSheet.to_csv(f"{targetDir}/{filename}.csv")
+		if section in exclude: continue
+
 		sectionTex = sectionSheet.to_latex(index = False, na_rep = "", column_format = "|l|l|", longtable = True)
 
 		# Make table look nice
@@ -101,14 +107,9 @@ def generateTex(memberData, exclude, contentFilePath = None, targetDir = None):
 			f.writelines("\n".join(sectionTexLines))
 			f.close()
 
-			# CSV
-			sectionSheet.to_csv(f"{targetDir}/{filename}.csv")
-
-
 		# Put the tables in the document (if necessary)
 		if contentFilePath != None:
 			contentFile.write(r"\pagestyle{" + section + r"}" + "\n")
-			# contentFile.write(r"\section*{" + section + r"}" + "\n")
 			contentFile.write(r"\input{tables/" + filename + r".tex}" + "\n")
 			contentFile.write(r"\newpage" + "\n")
 
