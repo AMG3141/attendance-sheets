@@ -12,12 +12,13 @@ def download(str, url = True):
 		f.close()
 	memberData = pd.read_csv(link, index_col = "ID")
 
-	memberData.sort_values(by = ["Last Name", "First Name"], inplace = True)
-
 	# Clean stuff up
 	memberData["Instrument"] = [s.lower() for s in memberData["Instrument"]] # Making lowercase just solves problems later on
 	memberData["First Name"] = [s.strip()[0].upper() + s.strip()[1:] for s in memberData["First Name"]] # Some people can't use capital letters
 	memberData["Last Name"] = [s.strip()[0].upper() + s.strip()[1:] for s in memberData["Last Name"]]
+
+	# Sort names
+	memberData.sort_values(by = ["Last Name", "First Name"], inplace = True)
 
 	return memberData
 
@@ -97,6 +98,7 @@ def generateTex(memberData, exclude, contentFilePath = None, targetDir = None):
 
 		# Colour header
 		sectionTexLines.insert(2, r"\rowcolor{grey}")
+		sectionTexLines.insert(7, r"\rowcolor{grey}")
 
 		# Write table to files or add to list
 		if targetDir == None:

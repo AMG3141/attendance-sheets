@@ -1,12 +1,13 @@
 Instrument,Section,Priority
 flugel horn,Brass,1
+french horn,Brass,1
 horn,Brass,1
 trombone,Brass,1
 trumpet,Brass,1
 tuba,Brass,1
 conductor,Conductor,0
-piano,Keys,3
 organ,Keys,3
+piano,Keys,3
 percussion,Percussion,1
 bass,Strings,1
 cello,Strings,1
@@ -21,6 +22,7 @@ flute,Wind,1
 oboe,Wind,1
 alto sax,Wind,2
 alto saxophone,Wind,2
+bagpipes,Wind,2
 bass clarinet,Wind,2
 piccolo,Wind,2
 saxophone,Wind,2
