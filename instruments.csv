@@ -13,13 +13,18 @@ bass,Strings,1
 cello,Strings,1
 double bass,Strings,1
 viola,Strings,1
-violin,Strings,1
+violin 1,Strings,1
+violin 2,Strings,1
 bass guitar,Strings,2
 harp,Strings,2
-bassoon,Wind,1
-clarinet,Wind,1
-flute,Wind,1
-oboe,Wind,1
+bassoon 1,Wind,1
+bassoon 2,Wind,1
+clarinet 1,Wind,1
+clarinet 2,Wind,1
+flute 1,Wind,1
+flute 2,Wind,1
+oboe 1,Wind,1
+oboe 2,Wind,1
 alto sax,Wind,2
 alto saxophone,Wind,2
 bagpipes,Wind,2
